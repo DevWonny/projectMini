@@ -30,7 +30,7 @@ function Register() {
   return (
     <div>
       <h3>회원가입</h3>
-      <form style={{display:"flex", flexDirection:"column", margin : "30px"}} onSubmit={registerSubmit}>
+      <form onSubmit={registerSubmit}>
         <CustomInput label="ID" value={userId} setValue={setUserId} />
         <CustomInput label="NAME" value={username} setValue={setUsername} />
         <CustomInput label="PASSWORD" value ={password} setValue={setPassword} />

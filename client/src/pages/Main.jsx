@@ -8,7 +8,7 @@ function Main() {
     <>
       <ToolBar />
       {/* toolbar => logout btn, title, username */}
-      <div style={{ maxWidth: "500px", margin: "0 auto" }}>
+      <div>
         <UploadForm />
         <ImageList />
       </div>

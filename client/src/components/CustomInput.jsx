@@ -1,10 +1,10 @@
 import React from 'react';
+import "./CustomInput.scss";
 
-function CustomInput({label, value, setValue}) {
+function CustomInput({placeholder, value, setValue}) {
   return (
-    <div style={{marginBottom : "20px"}}>
-      <label>{label}</label>
-      <input type="text" value={value} onChange = {e => setValue(e.target.value)} />
+    <div className='customInputBox'>
+      <input type="text" placeholder={placeholder} value={value} onChange = {e => setValue(e.target.value)} />
     </div>
   )
 }

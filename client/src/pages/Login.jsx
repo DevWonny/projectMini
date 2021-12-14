@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import "./Login.scss";
 
 function Login() {
   const [userId, setUserId] = useState("");
@@ -19,7 +20,7 @@ function Login() {
         username: result.data.username,
         sessionId: result.data.sessionId,
         _id: result.data._id,
-        userId : result.data.userId,
+        userId: result.data.userId,
       });
       console.log(me);
       toast.success("Login Success");
@@ -30,17 +31,14 @@ function Login() {
     }
   };
   return (
-    <div>
+    <div className="loginWrap">
       <h3>Login</h3>
-      <form
-        style={{ display: "flex", flexDirection: "column", margin: "30px" }}
-        onSubmit={loginSubmit}
-      >
-        <CustomInput label="ID" value={userId} setValue={setUserId} />
-        <CustomInput label="PASSWORD" value={password} setValue={setpassword} />
+      <form onSubmit={loginSubmit}>
+        <CustomInput placeholder="ID" value={userId} setValue={setUserId} />
+        <CustomInput placeholder="Password" value={password} setValue={setpassword} />
 
         <button type="submit">로그인</button>
-        <Link to="/register">회원가입</Link>
+        <Link to="/register" className="registerLink">회원가입</Link>
       </form>
     </div>
   );

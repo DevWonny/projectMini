@@ -9,15 +9,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div >
+    <>
       <ToastContainer />
-      <Routes>
-        <Route path="/images/:imageId" element={<ImagePage />}/>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/main" element={<Main />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/images/:imageId" element={<ImagePage />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/main" element={<Main />} />
+        </Routes>
+    </>
   );
 }
 
