@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 import CustomInput from '../components/CustomInput';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link} from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import "./Register.scss";
 
 function Register() {
   const [userId, setUserId] = useState("");
@@ -28,15 +29,16 @@ function Register() {
     }
   }
   return (
-    <div>
+    <div className='registerWrap'>
       <h3>회원가입</h3>
       <form onSubmit={registerSubmit}>
-        <CustomInput label="ID" value={userId} setValue={setUserId} />
-        <CustomInput label="NAME" value={username} setValue={setUsername} />
-        <CustomInput label="PASSWORD" value ={password} setValue={setPassword} />
-        <CustomInput label="PASSWORDCAHECK" value={passwordCheck} setValue={setPasswordCheck} />
+        <CustomInput placeholder="ID" value={userId} setValue={setUserId} />
+        <CustomInput placeholder="NAME" value={username} setValue={setUsername} />
+        <CustomInput placeholder="PASSWORD" value ={password} setValue={setPassword} />
+        <CustomInput placeholder="PASSWORD CAHECK" value={passwordCheck} setValue={setPasswordCheck} />
         
         <button type="submit">회원가입</button>
+        <Link to="/" className="toLogin">로그인</Link>
       </form>
     </div>
   )

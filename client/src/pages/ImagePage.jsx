@@ -3,7 +3,8 @@ import React, { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ToolBar from "../components/ToolBar";
 import { ImageContext } from "../context/ImageContext";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import "./ImagePage.scss";
 
 function ImagePage() {
   const { imageId } = useParams();
@@ -19,7 +20,7 @@ function ImagePage() {
 
       const result = await axios.delete(`/images/${imageId}`);
       toast.success(result.data.message);
-      setImg(img.filter(image => image._id !== imageId));
+      setImg(img.filter((image) => image._id !== imageId));
       navigate("/main");
     } catch (e) {
       console.log(e);
@@ -28,11 +29,13 @@ function ImagePage() {
   };
 
   return (
-    <>
+    <div className="ImageListWrap">
       <ToolBar />
-      <img src={`http://localhost:5000/uploads/${image.key}`} alt={imageId} />
-      <button onClick={deleteBtn}>삭제</button>
-    </>
+      <div className="imageBox">
+        <img src={`http://localhost:5000/uploads/${image.key}`} alt={imageId} />
+        <button onClick={deleteBtn}>삭제</button>
+      </div>
+    </div>
   );
 }
 

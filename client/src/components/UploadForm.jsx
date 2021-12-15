@@ -5,7 +5,7 @@ import { ImageContext } from "../context/ImageContext";
 import "./UploadForm.scss";
 
 function UploadForm() {
-  const {img, setImg} = useContext(ImageContext);
+  const { img, setImg } = useContext(ImageContext);
   const defaultFileName = "이미지 파일을 업로드 해주세요!";
   const [file, setFile] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
@@ -48,29 +48,24 @@ function UploadForm() {
   };
 
   return (
-      <form onSubmit={submit}>
-        <img
-          src={imgSrc}
-          alt=""
-          className={imgSrc ? "image-prev-show" : "image-prev"}
-        />
-        <div className="file-dropper">
-          {fileName}
-          <input
-            id="image"
-            type="file"
-            accept="image/*"
-            onChange={imageSelectHandler}
-          />
-        </div>
+    <form onSubmit={submit} className="uploadForm">
+      <div className="file-dropper">
+        {imgSrc ? (
+          <img src={imgSrc} alt="" className="image-prev" />
+        ) : (
+          fileName
+        )}
 
-        <button
-          type="submit"
-          style={{ width: "97%", marginLeft: "20px", marginRight: "20px" }}
-        >
-          제출
-        </button>
-      </form>
+        <input
+          id="image"
+          type="file"
+          accept="image/*"
+          onChange={imageSelectHandler}
+        />
+      </div>
+
+      <button type="submit">업로드</button>
+    </form>
   );
 }
 

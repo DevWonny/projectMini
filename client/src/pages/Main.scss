@@ -1,0 +1,12 @@
+.mainWrap{
+  width : 100%;
+  overflow: hidden;
+  position : relative;
+
+  .mainImgWrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

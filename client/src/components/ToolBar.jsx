@@ -23,9 +23,9 @@ function ToolBar() {
   }
   return (
     <div className="toolbarWrap">
-      <h3 className="toolbarTitle">{imageId ? <Link to="/main">{`Personal Page - ${imageId}`}</Link> : "Personal Page"}</h3>
+      <h3 className="toolbarTitle">{imageId ? <Link to="/main" className='toHome'>{`Personal Page - ${imageId}`}</Link> : "Personal Page"}</h3>
       <div className="memberBox">
-        <span className='memberName'>{me? `환영합니다.${me.username}님` : "Who?" }</span>
+        <span className='memberName'>{me? `환영합니다. ${me.username}님` : "Who?" }</span>
         <span className="logout" onClick={logoutHandler}>로그아웃</span>
       </div>
     </div>

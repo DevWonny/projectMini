@@ -1,7 +1,7 @@
 $mainColor : #E4B7FF;
 $subColor : #88218B;
 
-.loginWrap{
+.registerWrap{
   width : 100%;
   height : 100vh;
   background-color: $mainColor;
@@ -26,7 +26,7 @@ $subColor : #88218B;
     flex-direction: column;
     justify-content: space-around;
     align-items : center;
-
+  }
     button{
       width : 80%;
       height : 40px;
@@ -43,7 +43,7 @@ $subColor : #88218B;
       }
     }
 
-    .registerLink{
+    .toLogin{
       color : #000;
       text-decoration: none;
       margin-bottom : 20px;
@@ -54,6 +54,4 @@ $subColor : #88218B;
         color : $subColor;
       }
     }
-  }
-
 }
