@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ToolBar from "../components/ToolBar";
 import { ImageContext } from "../context/ImageContext";
@@ -10,8 +10,23 @@ function ImagePage() {
   const { imageId } = useParams();
   const { img, setImg } = useContext(ImageContext);
   const navigate = useNavigate();
+  const [image, setImage] = useState();
+  const imageRef = useRef();
 
-  const image = img.find((image) => image._id === imageId);
+  useEffect(() => {
+      imageRef.current = img.find((image) => image._id === imageId);
+  }, [img, imageId]);
+
+  console.log(img);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (imageRef.current) setImage(imageRef.current);
+      else axios.get(`/images/${imageId}`).then(({ data }) => setImage(data));
+    },50)
+    
+  }, [imageId]);
+
   if (!image) return <h2>Loading...</h2>;
 
   const deleteBtn = async () => {

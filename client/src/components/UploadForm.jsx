@@ -7,59 +7,71 @@ import "./UploadForm.scss";
 function UploadForm() {
   const { img, setImg } = useContext(ImageContext);
   const defaultFileName = "이미지 파일을 업로드 해주세요!";
-  const [file, setFile] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
-  const [fileName, setFileName] = useState(defaultFileName);
-  // const [isPublic] = useState("false");
+  const [files, setFiles] = useState(null);
+  const [previews, setPreviews] = useState([]);
 
-  const imageSelectHandler = (e) => {
-    const imageFile = e.target.files[0];
-    setFile(imageFile);
-    setFileName(imageFile.name);
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(imageFile);
-    fileReader.onload = (e) => {
-      setImgSrc(e.target.result);
-    };
+  const imageSelectHandler = async (e) => {
+    const imageFiles = e.target.files;
+    setFiles(imageFiles);
+
+    const imagePreviews =await Promise.all(
+      [...imageFiles].map((imageFile) => {
+        return new Promise((resolve, reject) => {
+          try {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(imageFile);
+            fileReader.onload = (e) => {
+              resolve({imgSrc : e.target.result, fileName :imageFile.name});
+            };
+          } catch (e) {
+            reject(e);
+          }
+        });
+      })
+    );
+    
+    setPreviews(imagePreviews);
   };
 
   const submit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    // image : key , file : value
-    formData.append("image", file);
-    // formData.append("public", isPublic);
+    for (let file of files) {
+      // image : key , file : value
+      formData.append("image", file);
+    }
+
     try {
       const res = await axios.post("/images", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      setImg([...img, res.data]);
+      setImg([ ...res.data, ...img]);
       toast.success("success!");
       setTimeout(() => {
-        setFileName(defaultFileName);
-        setImgSrc(null);
+        setPreviews([]);
       }, 2000);
     } catch (e) {
       console.log(e);
       toast.error(e.response.data.message);
-      setFileName(defaultFileName);
-      setImgSrc(null);
+      setPreviews([]);
     }
   };
+
+  const previewImages = previews.map((preview, index) => (
+    <img src={preview.imgSrc} alt="" className="image-prev" key={index} />
+  ));
+
+  const filename = previews.length === 0 ? defaultFileName : previewImages;
 
   return (
     <form onSubmit={submit} className="uploadForm">
       <div className="file-dropper">
-        {imgSrc ? (
-          <img src={imgSrc} alt="" className="image-prev" />
-        ) : (
-          fileName
-        )}
-
+        {filename}
         <input
           id="image"
           type="file"
           accept="image/*"
+          multiple
           onChange={imageSelectHandler}
         />
       </div>
